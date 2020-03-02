@@ -1,12 +1,15 @@
-var lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l" ,"m" ,"n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var buttonEl = document.querySelector("#button");
+var userPassword = document.querySelector("#userPassword");
+var lowercase = "abcdefghijklmnopqrstuvwxyz";
 var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var numeric = "0123456789";
-var special = "~!@#$%^&*()_+-=[]\{}|;':,./<>?";
+var special = "!@#$%^&*()_+~`|}{[]:;?><,./-=";
+var passwordInputs = [];
+var newPassword = "";
 
-var password = [];
-
-function generatePassword() {
-    var passwordLength = prompt("Please choose a password length between 8 and 128 characters");
+buttonEl.addEventListener("click", function generatePassword() {
+    var passwordLength = prompt("Please choose a password length between 8 and 128 characters",
+    "enter character amount");
     console.log(passwordLength);
     if (passwordLength < 8 || passwordLength >= 128) {
         alert("Your password must be between 8 and 128 characters, please chose again.");
@@ -21,33 +24,46 @@ function generatePassword() {
     console.log(confirmNumeric);
     console.log(confirmSpecial);
     if (confirmLowercase === false && confirmUppercase === false && confirmNumeric === false && confirmSpecial === false) {
-        alert("Please include at least one of the characters?");
+        alert("Please include at least one of the characters");
         return;
     }
 if (confirmLowercase === true) {
-    password.push(lowercase);
-    console.log(password);
+    passwordInputs.push(lowercase);
+    console.log(passwordInputs);
 }
 if (confirmUppercase === true) {
-    password.push(uppercase);
-    console.log(password);
+    passwordInputs.push(uppercase);
+    console.log(passwordInputs);
 }
 if (confirmNumeric === true) {
-    password.push(numeric);
-    console.log(password);
+    passwordInputs.push(numeric);
+    console.log(passwordInputs);
 }
 if (confirmSpecial === true) {
-    password.push(special)
-    console.log(password);
+    passwordInputs.push(special)
+    console.log(passwordInputs);
 }
-for (i = 0; i < passwordLength; i++) {
-    // var a = ['a', 'b', 'c', 'd', 'e', 'f'];
-    var newPassword = password[Math.floor(password.length * Math.random())];
-    console.log(newPassword);
+
+for (i = 0; i < passwordInputs.length; i++) {
+    if (i === 0) {
+        for (j = 0; j < ( passwordLength - passwordInputs.length + 1 ); j++) {
+            console.debug("lengths", passwordLength, passwordInputs.length);
+
+            var character = passwordInputs[0].charAt(Math.floor(Math.random() * passwordInputs[0].length)); 
+            newPassword = newPassword.concat(character);       
+        }
+    } else {
+        var character = passwordInputs[i].charAt(Math.floor(Math.random() * passwordInputs[i].length));
+        newPassword = newPassword.concat(character);
+    }
 }
-}
+console.log("newPassword", newPassword);
+userPassword.textContent = newPassword
+})
+
 generatePassword();
 
+userPassword.appendChild(newPassword);
 
 // Run rest of code under here
 // confirm types
