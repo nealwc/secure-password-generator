@@ -8,8 +8,7 @@ var passwordInputs = [];
 var newPassword = "";
 
 buttonEl.addEventListener("click", function generatePassword() {
-    var passwordLength = prompt("Please choose a password length between 8 and 128 characters",
-    "enter character amount");
+    var passwordLength = prompt("Please choose a password length between 8 and 128 characters");
     console.log(passwordLength);
     if (passwordLength < 8 || passwordLength >= 128) {
         alert("Your password must be between 8 and 128 characters, please chose again.");
